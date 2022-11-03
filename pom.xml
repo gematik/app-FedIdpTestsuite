@@ -6,7 +6,7 @@
 
   <groupId>de.gematik.fit</groupId>
   <artifactId>fit</artifactId>
-  <version>1.0.5</version>
+  <version>1.0.6</version>
   <packaging>jar</packaging>
   <description>Testsuite fuer foederierte IDPs</description>
 

@@ -1,29 +1,55 @@
-## Testsuite Federation Master
+<img align="right" width="200" height="37" src="Gematik_Logo_Flag.png"/> <br/>
 
-#### Zielgruppe
+# app-FedIdpTestsuite (aka Testsuite Federation Master)
 
-Dieses Projekt richtet sich an Hersteller und Anbieter eines Federation Masters entsprechend *
-gemSpec_IDP_FedMaster*. Es beinhaltet eine Testsuite, die prüft, ob bestimmte Schnittstellen
-spezifikationskonform umgesetzt sind.
+<details>
+  <summary>Table of Contents</summary>
+  <ol>
+    <li>
+      <a href="#about-the-project">About The Project</a>
+       <ul>
+        <li><a href="#releasenotes">Release Notes</a></li>
+      </ul>     
+    </li>
+    <li>
+      <a href="#usage">Usage</a>
+      <ul>
+        <li><a href="#prerequisites">Prerequisites</a></li>
+        <li><a href="#test-execution">Test execution</a></li>
+        <li><a href="#test-results">Test results</a></li>
+      </ul>
+    </li>
+  </ol>
+</details>
 
-#### Konfiguration der Testsuite
+## About The Project
 
-Um die Testsuite einzusetzen, müssen zwei Dateien angepasst werden:
+This project is aimed at manufacturers and providers of a federation master according to
+***gemSpec_IDP_FedMaster***.
+It includes a test suite that checks whether certain interfaces are implemented according to the
+specification.
 
-* in der ***tiger-template.yaml*** muss unter ***source*** die Adresse des Federation Masters
-  eingetragen werden
-* in der ***tc_properties-template.yaml*** müssen die Adressen des Fedmasters, eines Fachdienstes
-  und
-  eines IDPs der Föderation eingetragen werden (genau die Werte, die als **sub** beim Federation
-  Fetch Endpoint zu verwenden sind).
+### Release Notes
 
-#### Ausführung der Testsuite
+See `ReleaseNotes.md` for all information regarding the (newest) releases.
 
-Die Testsuite wird über das shell-Skript ***runTestsuite.sh*** ausgeführt. Sollen nur spezifische
-Tests durchgeführt werden, kann das Skript angepasst und auf die gewünschten Cucumber-Tags gefiltert
-werden.
+## Usage
 
-#### Testergebnisse
+#### Prerequisites
 
-Nach einer erfolgreichen Ausführung der Testsuite wird unter ```./target/site/serenity/index.html```
-ein Testbericht erzeugt.
+In order to use the test suite, two files have to be adjusted
+
+* in `tiger-template.yaml` key `source` expects the address of the Federation Master
+* `tc_properties-template.yaml` contains addresses of Federation Master, of a "Fachdienst"
+  and of an IDP of the Federation (exactly the values specified as **sub** in Federation
+  Fetch Endpoint).
+
+#### Test execution
+
+The test suite is started via shell script `runTestsuite.sh`. Should only be specific
+Tests are performed, the script can be customized and filtered to the desired Cucumber tags.
+
+#### Test results
+
+After successful execution of the test-suite, a test report is generated
+at: ```./target/site/serenity/index.html```
