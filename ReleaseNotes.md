@@ -1,4 +1,4 @@
-# Release 1.0.4
+# Release 1.0.5
 
 - Initial Release
 - Testcases for entity statement endpoint, federation fetch endpoint, federation list endpoint, idp

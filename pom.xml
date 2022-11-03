@@ -6,7 +6,7 @@
 
   <groupId>de.gematik.fit</groupId>
   <artifactId>fit</artifactId>
-  <version>1.0.4</version>
+  <version>1.0.5</version>
   <packaging>jar</packaging>
   <description>Testsuite fuer foederierte IDPs</description>
 
@@ -33,14 +33,15 @@
   </developers>
 
   <scm>
-    <connection>scm:git:git://github.com/gematik/testtool-fit.git</connection>
-    <developerConnection>scm:git:ssh://git@github.com:gematik/testtool-fit.git</developerConnection>
-    <url>https://github.com/gematik/testtool-fit</url>
+    <connection>scm:git:git://github.com/gematik/app-FedIdpTestsuite.git</connection>
+    <developerConnection>scm:git:ssh://git@github.com:gematik/app-FedIdpTestsuite.git
+    </developerConnection>
+    <url>https://github.com/gematik/app-FedIdpTestsuite</url>
   </scm>
 
   <issueManagement>
     <system>GitHub</system>
-    <url>https://github.com/gematik/testtool-fit/issues</url>
+    <url>https://github.com/gematik/app-FedIdpTestsuite/issues</url>
   </issueManagement>
 
   <distributionManagement>
@@ -324,6 +325,42 @@
             </excludes>
           </markdown>
         </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>${version.maven-jar-plugin}</version>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>${version.maven-javadoc-plugin}</version>
+        <configuration>
+          <doclint>none</doclint>
+        </configuration>
+        <executions>
+          <execution>
+            <id>attach-javadocs</id>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-source-plugin</artifactId>
+        <version>${version.maven-source-plugin}</version>
+        <executions>
+          <execution>
+            <id>attach-sources</id>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>
