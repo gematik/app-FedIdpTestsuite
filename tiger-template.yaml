@@ -1,0 +1,19 @@
+# minimum viable test environment specification
+# default local Tiger Proxy
+tigerProxy:
+
+lib:
+  activateWorkflowUI: false
+
+additionalYamls:
+  - filename: tc_properties-template.yaml
+    baseKey: fit
+
+servers:
+  fedmaster:
+    type: externalUrl
+    startupTimeoutSec: 1
+    active: true
+    source:
+      - https://fedmaster.url.edu:443
+

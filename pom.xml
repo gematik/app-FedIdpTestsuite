@@ -1,0 +1,372 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>de.gematik.fit</groupId>
+  <artifactId>fit</artifactId>
+  <version>1.0.4</version>
+  <packaging>jar</packaging>
+  <description>Testsuite fuer foederierte IDPs</description>
+
+  <organization>
+    <name>gematik GmbH</name>
+    <url>http://www.gematik.de</url>
+  </organization>
+
+  <licenses>
+    <license>
+      <name>Apache License 2.0</name>
+      <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+    </license>
+  </licenses>
+
+  <developers>
+    <developer>
+      <name>gematik</name>
+      <email>software-development@gematik.de</email>
+      <url>https://gematik.github.io/</url>
+      <organization>gematik GmbH</organization>
+      <organizationUrl>https://www.gematik.de/</organizationUrl>
+    </developer>
+  </developers>
+
+  <scm>
+    <connection>scm:git:git://github.com/gematik/testtool-fit.git</connection>
+    <developerConnection>scm:git:ssh://git@github.com:gematik/testtool-fit.git</developerConnection>
+    <url>https://github.com/gematik/testtool-fit</url>
+  </scm>
+
+  <issueManagement>
+    <system>GitHub</system>
+    <url>https://github.com/gematik/testtool-fit/issues</url>
+  </issueManagement>
+
+  <distributionManagement>
+    <repository>
+      <id>releases</id>
+      <url>${releaseDeploymentRepository}</url>
+    </repository>
+    <snapshotRepository>
+      <id>snapshots</id>
+      <url>${snapshotDeploymentRepository}</url>
+    </snapshotRepository>
+  </distributionManagement>
+
+  <properties>
+    <maven.compiler.source>11</maven.compiler.source>
+    <maven.compiler.target>11</maven.compiler.target>
+    <version.java>17</version.java>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    <sonar.coverage.jacoco.xmlReportPaths>
+      ${project.basedir}/target/site/jacoco/jacoco-aggregate/jacoco.xml
+    </sonar.coverage.jacoco.xmlReportPaths>
+    <sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
+    <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
+    <sonar.language>java</sonar.language>
+    <version.bouncycastle.bcpkix>1.66</version.bouncycastle.bcpkix>
+    <version.junit-jupiter-api>5.6.2</version.junit-jupiter-api>
+    <version.junit-jupiter-engine>5.6.2</version.junit-jupiter-engine>
+    <version.junit-jupiter-params>5.6.2</version.junit-jupiter-params>
+    <version.junit-jupiter>5.6.2</version.junit-jupiter>
+    <version.jacoco-maven-plugin>0.8.8</version.jacoco-maven-plugin>
+    <version.lombok>1.18.12</version.lombok>
+    <version.maven>3.8.6</version.maven>
+    <version.maven-clean-plugin>3.1.0</version.maven-clean-plugin>
+    <version.maven-compiler-plugin>3.10.1</version.maven-compiler-plugin>
+    <version.maven-enforcer-plugin>3.1.0</version.maven-enforcer-plugin>
+    <version.maven-failsafe-plugin>3.0.0-M7</version.maven-failsafe-plugin>
+    <version.maven-gpg-plugin>3.0.1</version.maven-gpg-plugin>
+    <version.maven-jar-plugin>3.2.0</version.maven-jar-plugin>
+    <version.maven-javadoc-plugin>3.4.1</version.maven-javadoc-plugin>
+    <version.maven-project-info-reports-plugin>3.1.1</version.maven-project-info-reports-plugin>
+    <version.maven-resources-plugin>3.3.0</version.maven-resources-plugin>
+    <version.maven-site-plugin>3.9.1</version.maven-site-plugin>
+    <!-- settings for upload to sonar server -->
+    <version.maven-source-plugin>3.0.1</version.maven-source-plugin>
+    <version.maven-surefire-plugin>3.0.0-M7</version.maven-surefire-plugin>
+    <version.nexus-staging-maven-plugin>1.6.13</version.nexus-staging-maven-plugin>
+    <version.serenity.core>3.2.5</version.serenity.core>
+    <version.sonar-maven-plugin>3.9.1.2184</version.sonar-maven-plugin>
+    <version.spotless-maven-plugin>2.22.8</version.spotless-maven-plugin>
+    <version.spotless.google-java-format>1.15.0</version.spotless.google-java-format>
+    <version.tiger>0.24.2</version.tiger>
+
+    <yarnAuditAnalyzerEnabled>false</yarnAuditAnalyzerEnabled>
+  </properties>
+
+  <dependencyManagement>
+    <dependencies>
+
+    </dependencies>
+  </dependencyManagement>
+
+  <dependencies>
+    <dependency>
+      <groupId>de.gematik.test</groupId>
+      <artifactId>tiger-test-lib</artifactId>
+      <version>${version.tiger}</version>
+    </dependency>
+    <!-- needed for the JUnit driver class @CucumberOptions annotation -->
+    <dependency>
+      <groupId>net.serenity-bdd</groupId>
+      <artifactId>serenity-cucumber</artifactId>
+      <version>${version.serenity.core}</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <artifactId>maven-resources-plugin</artifactId>
+          <version>${version.maven-resources-plugin}</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>${version.maven-compiler-plugin}</version>
+          <configuration>
+            <encoding>${project.build.sourceEncoding}</encoding>
+            <source>${version.java}</source>
+            <target>${version.java}</target>
+            <debug>true</debug>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-enforcer-plugin</artifactId>
+        <version>${version.maven-enforcer-plugin}</version>
+        <executions>
+          <execution>
+            <id>enforce-versions</id>
+            <goals>
+              <goal>enforce</goal>
+            </goals>
+            <configuration>
+              <rules>
+                <requireJavaVersion>
+                  <message>Java version should be ${version.java}.</message>
+                  <version>${version.java}</version>
+                </requireJavaVersion>
+              </rules>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>${version.maven-surefire-plugin}</version>
+        <configuration>
+          <argLine>${surefireArgLine} -Dfile.encoding=UTF-8</argLine>
+          <skipTests>${skip.unittests}</skipTests>
+        </configuration>
+      </plugin>
+      <!-- tag::generator-plugin[] -->
+      <!-- optional plugin to dynamically create JUnit driver classes on the fly.
+                  You may omit this plugin if you have written your driver classes manually.
+                  -->
+      <plugin>
+        <groupId>de.gematik.test</groupId>
+        <artifactId>tiger-maven-plugin</artifactId>
+        <version>${version.tiger}</version>
+        <executions>
+          <execution>
+            <id>generate-tiger-drivers</id>
+            <goals>
+              <goal>generate-drivers</goal>
+            </goals>
+            <phase>generate-test-sources</phase>
+            <configuration>
+              <!-- mandatory -->
+              <glues>
+                <glue>de.gematik.test.tiger.glue</glue>
+                <glue>de.gematik.fit.test.steps</glue>
+                <!-- add your packages here -->
+              </glues>
+              <!-- optional -->
+              <featuresDir>${project.basedir}/src/test/resources/features</featuresDir>
+              <!-- optional -->
+              <includes>
+                <include>**/*.feature</include>
+              </includes>
+              <!-- optional -->
+              <driverPackage>de.gematik.test.tiger.examples.bdd.drivers</driverPackage>
+              <!-- optional -->
+              <!--suppress UnresolvedMavenProperty -->
+              <driverClassName>Driver${ctr}IT</driverClassName>
+              <!-- optional, defaults to the templated located at
+                                          /src/main/resources/driverClassTemplate.jtmpl
+                                          in the tiger-maven-plugin module.
+                                          Use separate template file if you have spring boot apps to test
+                                          or need to do some more fancy set up stuff.
+                                          <templateFile>${project.basedir}/..../XXXX.jtmpl</templateFile>
+                                          -->
+              <!-- optional -->
+              <skip>${skip.inttests}</skip>
+            </configuration>
+          </execution>
+          <execution>
+            <id>generate-tiger-report</id>
+            <goals>
+              <goal>generate-serenity-reports</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <!-- end::generator-plugin[] -->
+
+      <!-- Runs the tests by calling the JUnit driver classes -->
+      <!-- To filter features / scenarios use the system property
+                       -Dcucumber.filter.tags -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-failsafe-plugin</artifactId>
+        <version>${version.maven-failsafe-plugin}</version>
+        <configuration>
+          <includes>
+            <!-- adapt to the class names of your driver classes -->
+            <include>**/Driver*IT.java</include>
+          </includes>
+          <systemPropertyVariables>
+            <!--suppress UnresolvedMavenProperty -->
+            <cucumber.filter.tags>@Approval and not @OpenBug</cucumber.filter.tags>
+          </systemPropertyVariables>
+
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>integration-test</goal>
+              <goal>verify</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+        <version>${version.jacoco-maven-plugin}</version>
+        <executions>
+          <execution>
+            <id>default-prepare-agent</id>
+            <goals>
+              <goal>prepare-agent</goal>
+            </goals>
+            <configuration>
+              <propertyName>surefireArgLine</propertyName>
+              <append>true</append>
+              <destFile>${project.basedir}/target/jacoco.exec</destFile>
+              <excludes>
+                <exclude>de.gematik.fit.tests.*</exclude>
+              </excludes>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <!-- to upload jacoco results to sonar server via mvn sonar:sonar-->
+      <plugin>
+        <groupId>org.sonarsource.scanner.maven</groupId>
+        <artifactId>sonar-maven-plugin</artifactId>
+        <version>${version.sonar-maven-plugin}</version>
+      </plugin>
+      <plugin>
+        <groupId>com.diffplug.spotless</groupId>
+        <artifactId>spotless-maven-plugin</artifactId>
+        <version>${version.spotless-maven-plugin}</version>
+        <configuration>
+          <formats>
+            <!-- you can define as many formats as you want, each is independent -->
+            <format>
+              <!-- define the files to apply to -->
+              <includes>
+                <include>**/*.yml</include>
+              </includes>
+              <excludes>
+                <exclude>**/target/**/*</exclude>
+              </excludes>
+              <!-- define the steps to apply to those files -->
+              <trimTrailingWhitespace/>
+              <endWithNewline/>
+              <indent>
+                <spaces>true</spaces>
+                <spacesPerTab>2</spacesPerTab>
+              </indent>
+            </format>
+          </formats>
+          <java>
+            <toggleOffOn/>
+            <googleJavaFormat>
+              <version>${version.spotless.google-java-format}</version>
+              <style>GOOGLE</style>
+              <reflowLongStrings>true</reflowLongStrings>
+            </googleJavaFormat>
+          </java>
+          <groovy>
+            <includes>
+              <include>**/*.Jenkinsfile</include>
+            </includes>
+            <importOrder/>
+          </groovy>
+          <markdown>
+            <includes>
+              <include>**/*.md</include>
+            </includes>
+            <excludes>
+              <exclude>**/target/**/*</exclude>
+            </excludes>
+          </markdown>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+  <profiles>
+    <profile>
+      <id>external</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-gpg-plugin</artifactId>
+            <version>${version.maven-gpg-plugin}</version>
+            <executions>
+              <execution>
+                <id>sign-artifacts</id>
+                <goals>
+                  <goal>sign</goal>
+                </goals>
+                <phase>verify</phase>
+                <configuration>
+                  <gpgArguments>
+                    <arg>--pinentry-mode</arg>
+                    <arg>loopback</arg>
+                  </gpgArguments>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.sonatype.plugins</groupId>
+            <artifactId>nexus-staging-maven-plugin</artifactId>
+            <version>${version.nexus-staging-maven-plugin}</version>
+            <extensions>true</extensions>
+            <configuration>
+              <serverId>ossrh</serverId>
+              <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+              <autoReleaseAfterClose>true</autoReleaseAfterClose>
+              <stagingProgressTimeoutMinutes>20</stagingProgressTimeoutMinutes>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
+</project>
