@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022 gematik GmbH
+ * Copyright (c) 2023 gematik GmbH
  * 
  * Licensed under the Apache License, Version 2.0 (the License);
  * you may not use this file except in compliance with the License.
@@ -32,6 +32,7 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import java.util.ArrayList;
+import java.util.Deque;
 import java.util.List;
 import java.util.Map;
 import lombok.SneakyThrows;
@@ -125,8 +126,9 @@ public class StepsGlue {
   }
 
   private static RbelElement getLastMessage() {
-    final List<RbelElement> messages =
-        TigerDirector.getTigerTestEnvMgr().getLocalTigerProxy().getRbelMessages();
-    return messages.get(messages.size() - 1);
+
+    final Deque<RbelElement> rbelMessages =
+        TigerDirector.getTigerTestEnvMgr().getLocalTigerProxyOrFail().getRbelMessages();
+    return rbelMessages.getLast();
   }
 }

@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2022 gematik GmbH
+# Copyright (c) 2023 gematik GmbH
 # 
 # Licensed under the Apache License, Version 2.0 (the License);
 # you may not use this file except in compliance with the License.
@@ -13,11 +13,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-
+@PRODUKT:IDP_FedMaster
 Feature: Test Entity Statement of Fedmaster
 
-  @TCID:FEDMASTER_ENTITY_STATEMENT_001
+  @TCID:FEDM_ENTITY_STATEMENT_001
   @Approval
+  @PRIO:1
+  @TESTSTUFE:4
   Scenario: Fedmaster EntityStatement - Gutfall - Validiere Response
 
   ```
@@ -35,8 +37,10 @@ Feature: Test Entity Statement of Fedmaster
     And TGR current response with attribute "$.header.Content-Type" matches "application/entity-statement+jwt;charset=UTF-8"
 
 
-  @TCID:FEDMASTER_ENTITY_STATEMENT_002
+  @TCID:FEDM_ENTITY_STATEMENT_002
   @Approval
+  @PRIO:1
+  @TESTSTUFE:4
   Scenario: Fedmaster EntityStatement - Gutfall - Validiere Response Header Claims
 
   ```
@@ -56,9 +60,10 @@ Feature: Test Entity Statement of Fedmaster
           }
         """
 
-  @TCID:FEDMASTER_ENTITY_STATEMENT_003
-  @OpenBug
-  #siehe IDP-818
+  @TCID:FEDM_ENTITY_STATEMENT_003
+  @Approval
+  @PRIO:1
+  @TESTSTUFE:4
   Scenario: Fedmaster EntityStatement - Gutfall - Validiere Response Body Claims
 
   ```
@@ -77,14 +82,15 @@ Feature: Test Entity Statement of Fedmaster
             iat:                           "${json-unit.ignore}",
             exp:                           "${json-unit.ignore}",
             jwks:                          "${json-unit.ignore}",
-            authority_hints:               "${json-unit.ignore}",
             metadata:                      "${json-unit.ignore}",
           }
         """
 
 
-  @TCID:FEDMASTER_ENTITY_STATEMENT_004
+  @TCID:FEDM_ENTITY_STATEMENT_004
   @Approval
+  @PRIO:1
+  @TESTSTUFE:4
   Scenario: Fedmaster EntityStatement - Gutfall - Validiere Metadata Body Claim
 
   ```
@@ -111,22 +117,26 @@ Feature: Test Entity Statement of Fedmaster
     """
 
 
-  @TCID:FEDMASTER_ENTITY_STATEMENT_005
+  @TCID:FEDM_ENTITY_STATEMENT_005
   @Approval
+  @PRIO:1
+  @TESTSTUFE:4
   Scenario: Fedmaster EntityStatement - Gutfall - Validiere JWKS in Body Claims
 
   ```
   Wir rufen das EntityStatement beim Fedmaster ab
 
-  Der Response Body muss ein JWS mit einem korrekten JWKS Claim sein (d.h. erster JWK hat korrekte Struktur).
+  Der Response Body muss ein JWS mit einem JWKS Claim sein.
+  Das JWKS muss mindestens einen strukturell korrekten JWK mit use = sig enthalten.
+
 
     Given TGR clear recorded messages
     When Fetch Fedmaster Entity statement
     And TGR find request to path "/.well-known/openid-federation"
-    Then TGR current response at "$.body.body.jwks.keys.0" matches as JSON:
+    Then TGR current response at "$.body.body.jwks.keys.[?($.use.content == 'sig')]" matches as JSON:
             """
           {
-            use:                           '.*',
+            use:                           'sig',
             kid:                           '.*',
             kty:                           'EC',
             crv:                           'P-256',

@@ -8,7 +8,7 @@
     <li>
       <a href="#about-the-project">About The Project</a>
        <ul>
-        <li><a href="#releasenotes">Release Notes</a></li>
+        <li><a href="#release-notes">Release Notes</a></li>
       </ul>     
     </li>
     <li>
@@ -31,7 +31,7 @@ specification.
 
 ### Release Notes
 
-See `ReleaseNotes.md` for all information regarding the (newest) releases.
+See [ReleaseNotes.md](ReleaseNotes.md) for all information regarding the (newest) releases.
 
 ## Usage
 
@@ -39,14 +39,14 @@ See `ReleaseNotes.md` for all information regarding the (newest) releases.
 
 In order to use the test suite, two files have to be adjusted
 
-* in `tiger-template.yaml` key `source` expects the address of the Federation Master
-* `tc_properties-template.yaml` contains addresses of Federation Master, of a "Fachdienst"
+* in [tiger-template.yaml](tiger-template.yaml) key `source` expects the address of the Federation Master
+* [tc_properties-template.yaml](tc_properties-template.yaml) contains addresses of Federation Master, of a "Fachdienst"
   and of an IDP of the Federation (exactly the values specified as **sub** in Federation
   Fetch Endpoint).
 
 #### Test execution
 
-The test suite is started via shell script `runTestsuite.sh`. Should only be specific
+The test suite is started via shell script [runTestsuite.sh](runTestsuite.sh). Should only be specific
 Tests are performed, the script can be customized and filtered to the desired Cucumber tags.
 
 #### Test results

@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2022 gematik GmbH
+# Copyright (c) 2023 gematik GmbH
 # 
 # Licensed under the Apache License, Version 2.0 (the License);
 # you may not use this file except in compliance with the License.
@@ -14,6 +14,7 @@
 # limitations under the License.
 #
 
+@PRODUKT:IDP_FedMaster
 Feature: Test Fedmaster's Fed List
 
   Background: Initialisiere Testkontext durch Abfrage des Entity Statements
@@ -21,8 +22,10 @@ Feature: Test Fedmaster's Fed List
     And TGR find request to path "/.well-known/openid-federation"
     Then TGR set local variable "fedListEndpoint" to "!{rbel:currentResponseAsString('$..federation_list_endpoint')}"
 
-  @TCID:FEDMASTER_FED_LIST_001
+  @TCID:FEDM_FED_LIST_001
   @Approval
+  @PRIO:1
+  @TESTSTUFE:4
   Scenario: Fedmaster Fed List - Gutfall - Validiere Response
 
   ```
@@ -40,8 +43,10 @@ Feature: Test Fedmaster's Fed List
     And TGR current response with attribute "$.header.Content-Type" matches "application/json;charset=UTF-8"
 
 
-  @TCID:FEDMASTER_FED_LIST_002
+  @TCID:FEDM_FED_LIST_002
   @Approval
+  @PRIO:1
+  @TESTSTUFE:4
   Scenario: Fedmaster Fed List - Gutfall - Validiere Response Body
 
   ```

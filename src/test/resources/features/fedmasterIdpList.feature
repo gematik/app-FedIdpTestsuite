@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2022 gematik GmbH
+# Copyright (c) 2023 gematik GmbH
 # 
 # Licensed under the Apache License, Version 2.0 (the License);
 # you may not use this file except in compliance with the License.
@@ -14,6 +14,7 @@
 # limitations under the License.
 #
 
+@PRODUKT:IDP_FedMaster
 Feature: Test Fedmaster's IDP List
 
   Background: Initialisiere Testkontext durch Abfrage des Entity Statements
@@ -21,8 +22,10 @@ Feature: Test Fedmaster's IDP List
     And TGR find request to path "/.well-known/openid-federation"
     Then TGR set local variable "idpListEndpoint" to "!{rbel:currentResponseAsString('$..idp_list_endpoint')}"
 
-  @TCID:FEDMASTER_IDP_LIST_001
+  @TCID:FEDM_IDP_LIST_001
   @Approval
+  @PRIO:1
+  @TESTSTUFE:4
   Scenario: Fedmaster IDP List - Gutfall - Validiere Response
 
   ```
@@ -40,8 +43,10 @@ Feature: Test Fedmaster's IDP List
     And TGR current response with attribute "$.header.Content-Type" matches "application/jwt;charset=UTF-8"
 
 
-  @TCID:FEDMASTER_IDP_LIST_002
+  @TCID:FEDM_IDP_LIST_002
   @Approval
+  @PRIO:1
+  @TESTSTUFE:4
   Scenario: Fedmaster IDP List - Gutfall - Validiere Response Header Claims
 
   ```
@@ -61,8 +66,10 @@ Feature: Test Fedmaster's IDP List
           }
         """
 
-  @TCID:FEDMASTER_IDP_LIST_003
+  @TCID:FEDM_IDP_LIST_003
   @Approval
+  @PRIO:1
+  @TESTSTUFE:4
   Scenario: Fedmaster IDP List - Gutfall - Validiere Response Body Claims
 
   ```
@@ -83,8 +90,10 @@ Feature: Test Fedmaster's IDP List
           }
         """
 
-  @TCID:FEDMASTER_IDP_LIST_004
-  @OpenBug
+  @TCID:FEDM_IDP_LIST_004
+  @PRIO:1
+  @TESTSTUFE:4
+  @Approval
   Scenario: Fedmaster IDP List - Gutfall - Validiere Response Body idp_entity Claim
 
   ```
@@ -104,4 +113,3 @@ Feature: Test Fedmaster's IDP List
             user_type_supported:                  '(HP)|(IP)|(HCI)',
           }
         """
-    And TGR wait for user abort

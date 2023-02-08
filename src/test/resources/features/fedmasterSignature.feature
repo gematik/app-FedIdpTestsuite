@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2022 gematik GmbH
+# Copyright (c) 2023 gematik GmbH
 # 
 # Licensed under the Apache License, Version 2.0 (the License);
 # you may not use this file except in compliance with the License.
@@ -14,30 +14,21 @@
 # limitations under the License.
 #
 
+@PRODUKT:IDP_FedMaster
 Feature: Test Signature in JWS
 
   Background: Initialisiere Testkontext durch Abfrage des Entity Statements
     Given Fetch Fedmaster Entity statement
     And TGR find request to path "/.well-known/openid-federation"
-    And expect JWKS in last message and add its keys to truststore
+    And Expect JWKS in last message and add its keys to truststore
     And TGR set local variable "idpListEndpoint" to "!{rbel:currentResponseAsString('$..idp_list_endpoint')}"
     And TGR set local variable "federationFetchEndpoint" to "!{rbel:currentResponseAsString('$..federation_fetch_endpoint')}"
 
 
-  @TCID:FEDMASTER_SIG_001
-  @TODO:JWKSmitJexlPruefen
-  @TODO:testfallRedundant
-  Scenario: Fedmaster Signature - Check kid
-
-  ```
-  Wir rufen das Entity Statement des Fedmasters ab und prüfen, ob die kid im Header der kid eines Schlüssels im JWKS im Body entspricht
-
-    Given TGR clear recorded messages
-    When Fetch Fedmaster Entity statement
-    And TGR find request to path "/.well-known/openid-federation"
-    Then TGR current response at "$.body.header.kid" matches "!{rbel:currentResponseAsString('$.body.body.jwks.keys.0.kid')}"
-
-  @TCID:FEDMASTER_SIG_002
+  @TCID:FEDM_SIG_001
+  @Approval
+  @PRIO:1
+  @TESTSTUFE:4
   Scenario: Fedmaster Signature - Check Entity Statement
 
   ```
@@ -46,10 +37,13 @@ Feature: Test Signature in JWS
     Given TGR clear recorded messages
     When Fetch Fedmaster Entity statement
     And TGR find request to path "/.well-known/openid-federation"
-    And check signature of JWS in last message
+    And Check signature of JWS in last message
 
 
-  @TCID:FEDMASTER_SIG_003
+  @TCID:FEDM_SIG_002
+  @Approval
+  @PRIO:1
+  @TESTSTUFE:4
   Scenario: Fedmaster Signature - Check IDP List
 
   ```
@@ -58,10 +52,13 @@ Feature: Test Signature in JWS
     Given TGR clear recorded messages
     When Send Get Request to "${idpListEndpoint}"
     And TGR find request to path ".*"
-    And check signature of JWS in last message
+    And Check signature of JWS in last message
 
 
-  @TCID:FEDMASTER_SIG_004
+  @TCID:FEDM_SIG_003
+  @Approval
+  @PRIO:1
+  @TESTSTUFE:4
   Scenario: Fedmaster Signature - Check Entity Stetement of FD/IDP
 
   ```
@@ -72,4 +69,4 @@ Feature: Test Signature in JWS
       | sub               | iss              |
       | fit.fachdienstUrl | fit.fedMasterUrl |
     And TGR find request to path ".*"
-    And check signature of JWS in last message
+    And Check signature of JWS in last message
