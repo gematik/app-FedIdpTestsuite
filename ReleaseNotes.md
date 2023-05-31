@@ -2,6 +2,10 @@
 
 # Release notes app-FedIdpTestsuite
 
+## Release 1.0.10
+
+- update dependencies
+
 ## Release 1.0.8
 
 - update dependencies
