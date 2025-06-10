@@ -1,5 +1,5 @@
 #
-# Copyright 2023 gematik GmbH
+# Copyright (Date see Readme), gematik GmbH
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -13,13 +13,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+# *******
+#
+# For additional notes and disclaimer from gematik and in case of changes by gematik find details in the "Readme" file.
+#
 
 @PRODUKT:IDP_FedMaster
 Feature: Test Fedmaster's Fed List
 
   Background: Initialisiere Testkontext durch Abfrage des Entity Statements
     Given Fetch Fedmaster Entity statement
-    And TGR find request to path "/.well-known/openid-federation"
+    And TGR find first request to path "/.well-known/openid-federation"
     Then TGR set local variable "fedListEndpoint" to "!{rbel:currentResponseAsString('$..federation_list_endpoint')}"
 
   @TCID:FEDM_FED_LIST_001
@@ -38,7 +42,7 @@ Feature: Test Fedmaster's Fed List
 
     Given TGR clear recorded messages
     When Send Get Request to "${fedListEndpoint}"
-    And TGR find request to path ".*"
+    And TGR find first request to path ".*"
     Then TGR current response with attribute "$.responseCode" matches "200"
     And TGR current response with attribute "$.header.Content-Type" matches "application/json;charset=UTF-8"
 
@@ -56,5 +60,5 @@ Feature: Test Fedmaster's Fed List
 
     Given TGR clear recorded messages
     When Send Get Request to "${fedListEndpoint}"
-    And TGR find request to path ".*"
-    Then TGR current response at "$.body.0" matches "http.*"
+    And TGR find first request to path ".*"
+    Then TGR current response with attribute "$.body.0" matches "http.*"
