@@ -2,6 +2,11 @@
 
 # Release notes app-FedIdpTestsuite
 
+## Release 2.0.0
+
+- Java 21
+- update dependencies
+
 ## Release 1.0.10
 
 - update dependencies

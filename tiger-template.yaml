@@ -5,7 +5,7 @@ tigerProxy:
 lib:
   activateWorkflowUI: false
 
-additionalYamls:
+additionalConfigurationFiles:
   - filename: tc_properties-template.yaml
     baseKey: fit
 

@@ -1,5 +1,5 @@
 #
-# Copyright 2023 gematik GmbH
+# Copyright (Date see Readme), gematik GmbH
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -13,13 +13,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+# *******
+#
+# For additional notes and disclaimer from gematik and in case of changes by gematik find details in the "Readme" file.
+#
 
 @PRODUKT:IDP_FedMaster
 Feature: Test Signature in JWS
 
   Background: Initialisiere Testkontext durch Abfrage des Entity Statements
     Given Fetch Fedmaster Entity statement
-    And TGR find request to path "/.well-known/openid-federation"
+    And TGR find first request to path "/.well-known/openid-federation"
     And Expect JWKS in last message and add its keys to truststore
     And TGR set local variable "idpListEndpoint" to "!{rbel:currentResponseAsString('$..idp_list_endpoint')}"
     And TGR set local variable "federationFetchEndpoint" to "!{rbel:currentResponseAsString('$..federation_fetch_endpoint')}"
@@ -36,7 +40,7 @@ Feature: Test Signature in JWS
 
     Given TGR clear recorded messages
     When Fetch Fedmaster Entity statement
-    And TGR find request to path "/.well-known/openid-federation"
+    And TGR find first request to path "/.well-known/openid-federation"
     And Check signature of JWS in last message
 
 
@@ -51,7 +55,7 @@ Feature: Test Signature in JWS
 
     Given TGR clear recorded messages
     When Send Get Request to "${idpListEndpoint}"
-    And TGR find request to path ".*"
+    And TGR find first request to path ".*"
     And Check signature of JWS in last message
 
 
@@ -59,7 +63,7 @@ Feature: Test Signature in JWS
   @Approval
   @PRIO:1
   @TESTSTUFE:4
-  Scenario: Fedmaster Signature - Check Entity Stetement of FD/IDP
+  Scenario: Fedmaster Signature - Check Entity Statement of FD/IDP
 
   ```
   Wir rufen das Entity Statement des Fedmasters ab und prüfen, ob die Signatur korrekt ist
@@ -68,5 +72,5 @@ Feature: Test Signature in JWS
     When Send Get Request to "${federationFetchEndpoint}" with
       | sub               | iss              |
       | fit.fachdienstUrl | fit.fedMasterUrl |
-    And TGR find request to path ".*"
+    And TGR find first request to path ".*"
     And Check signature of JWS in last message
