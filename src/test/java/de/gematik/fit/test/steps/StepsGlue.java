@@ -1,5 +1,5 @@
 /*
- * Copyright (Date see Readme), gematik GmbH
+ * Copyright (Change Date see Readme), gematik GmbH
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,7 +30,7 @@ import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import java.util.Deque;
+import java.util.List;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import net.serenitybdd.annotations.Steps;
@@ -76,8 +76,8 @@ public class StepsGlue {
   }
 
   private static RbelElement getLastMessage() {
-    final Deque<RbelElement> rbelMessages =
-        TigerDirector.getTigerTestEnvMgr().getLocalTigerProxyOrFail().getRbelMessages();
+    final List<RbelElement> rbelMessages =
+        TigerDirector.getTigerTestEnvMgr().getLocalTigerProxyOrFail().getRbelMessagesList();
     return rbelMessages.getLast();
   }
 }

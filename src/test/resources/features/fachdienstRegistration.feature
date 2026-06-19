@@ -1,5 +1,5 @@
 #
-# Copyright (Date see Readme), gematik GmbH
+# Copyright (Change Date see Readme), gematik GmbH
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -81,7 +81,7 @@ Feature: Test Registration of a Fachdienst
             exp:                           "${json-unit.ignore}",
             jwks:                          "${json-unit.ignore}",
             authority_hints:               "${json-unit.ignore}",
-            metadata:                      "${json-unit.ignore}",
+            metadata:                      "${json-unit.ignore}"
           }
         """
     And TGR current response with attribute "$.body.body.authority_hints.0" matches "${fit.fedMasterUrl}"
@@ -159,6 +159,6 @@ Feature: Test Registration of a Fachdienst
             kty:                           'EC',
             crv:                           'P-256',
             x:                             "${json-unit.ignore}",
-            y:                             "${json-unit.ignore}",
+            y:                             "${json-unit.ignore}"
           }
         """
