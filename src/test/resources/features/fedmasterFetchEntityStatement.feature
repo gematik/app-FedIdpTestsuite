@@ -1,5 +1,5 @@
 #
-# Copyright (Date see Readme), gematik GmbH
+# Copyright (Change Date see Readme), gematik GmbH
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -176,7 +176,7 @@ Feature: Test Fedmaster's Federation Fetch Endpoint
             kty:                           'EC',
             crv:                           'P-256',
             x:                             "${json-unit.ignore}",
-            y:                             "${json-unit.ignore}",
+            y:                             "${json-unit.ignore}"
           }
         """
 
@@ -265,7 +265,7 @@ Feature: Test Fedmaster's Federation Fetch Endpoint
             kty:                           'EC',
             crv:                           'P-256',
             x:                             "${json-unit.ignore}",
-            y:                             "${json-unit.ignore}",
+            y:                             "${json-unit.ignore}"
           }
         """
 
@@ -282,6 +282,6 @@ Feature: Test Fedmaster's Federation Fetch Endpoint
             kty:                           'EC',
             crv:                           'P-256',
             x:                             "${json-unit.ignore}",
-            y:                             "${json-unit.ignore}",
+            y:                             "${json-unit.ignore}"
           }
         """

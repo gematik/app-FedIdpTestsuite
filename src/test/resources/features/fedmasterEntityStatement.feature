@@ -1,5 +1,5 @@
 #
-# Copyright (Date see Readme), gematik GmbH
+# Copyright (Change Date see Readme), gematik GmbH
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -87,7 +87,7 @@ Feature: Test Entity Statement of Fedmaster
             iat:                           "${json-unit.ignore}",
             exp:                           "${json-unit.ignore}",
             jwks:                          "${json-unit.ignore}",
-            metadata:                      "${json-unit.ignore}",
+            metadata:                      "${json-unit.ignore}"
           }
         """
 
@@ -146,6 +146,6 @@ Feature: Test Entity Statement of Fedmaster
             kty:                           'EC',
             crv:                           'P-256',
             x:                             "${json-unit.ignore}",
-            y:                             "${json-unit.ignore}",
+            y:                             "${json-unit.ignore}"
           }
         """
